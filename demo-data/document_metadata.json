@@ -1,0 +1,361 @@
+[
+  {
+    "document_id": "DOC-C4B9DB46",
+    "filename": "01_Previous_EOA_Letter_2025-26.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "previous_eoa",
+    "issuer": "AICTE (simulated)",
+    "issue_date": "2025-04-01",
+    "expiry_date": "2026-03-31",
+    "reference_number": "DEMO/EOA/2025-26/0142",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "eoa_number": "DEMO/EOA/2025-26/0142",
+      "approved_intake": "240"
+    },
+    "expected_validation_outcome": "valid",
+    "associated_findings": [],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-896C03B5",
+    "filename": "02_Application_Form_AY2026-27.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "application_form",
+    "issuer": "Institution",
+    "issue_date": "2026-01-11",
+    "expiry_date": null,
+    "reference_number": "DEMO-EVENT-2026-001",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "application_number": "DEMO-EVENT-2026-001",
+      "proposed_intake": "330"
+    },
+    "expected_validation_outcome": "valid",
+    "associated_findings": [],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-40B60F4E",
+    "filename": "03_Faculty_Information_Declaration.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "faculty_declaration",
+    "issuer": "Institution",
+    "issue_date": "2026-01-10",
+    "expiry_date": null,
+    "reference_number": "AIT/FAC/2026-01",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "total_faculty": "48",
+      "faculty_phd_count": "30"
+    },
+    "expected_validation_outcome": "inconsistent",
+    "associated_findings": [
+      "DEMO-FAC-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-1AC9DE5D",
+    "filename": "04_Faculty_Appointment_Qualification_Summary.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "faculty_summary",
+    "issuer": "Institution",
+    "issue_date": "2026-01-10",
+    "expiry_date": null,
+    "reference_number": "AIT/FAC/2026-02",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "total_faculty": "45",
+      "faculty_phd_count": "27"
+    },
+    "expected_validation_outcome": "inconsistent",
+    "associated_findings": [
+      "DEMO-FAC-001",
+      "DEMO-FAC-002"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-113E399C",
+    "filename": "05_Trust_Registration_Certificate.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "trust_registration",
+    "issuer": "Charity Commissioner (simulated)",
+    "issue_date": "2008-06-14",
+    "expiry_date": null,
+    "reference_number": "MAH/1234/2008",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "registration_number": "MAH/1234/2008"
+    },
+    "expected_validation_outcome": "verification_pending",
+    "associated_findings": [
+      "DEMO-VER-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-D17680D8",
+    "filename": "06_Affidavit_Increase_Intake.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "affidavit",
+    "issuer": "Institution",
+    "issue_date": "2026-01-10",
+    "expiry_date": null,
+    "reference_number": "AIT/AFF/2026-01",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "deponent": "Aarohan Education Society",
+      "city": "Nagpur"
+    },
+    "expected_validation_outcome": "inconsistent",
+    "associated_findings": [
+      "DEMO-ID-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-DE369B41",
+    "filename": "07_Payment_Receipt_TER_2026.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "payment_receipt",
+    "issuer": "AICTE (simulated)",
+    "issue_date": "2026-01-12",
+    "expiry_date": null,
+    "reference_number": "TER/2026/000981",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "receipt_number": "TER/2026/000981",
+      "amount": "350000"
+    },
+    "expected_validation_outcome": "valid",
+    "associated_findings": [],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-90F294F2",
+    "filename": "08_Institutional_Compliance_Declaration.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "compliance_declaration",
+    "issuer": "Institution",
+    "issue_date": "2026-01-11",
+    "expiry_date": null,
+    "reference_number": "AIT/COMP/2026-01",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "declaration_date": "2026-01-11"
+    },
+    "expected_validation_outcome": "incomplete",
+    "associated_findings": [
+      "DEMO-CHK-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-26761D3D",
+    "filename": "09_Building_Occupancy_Certificate.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "occupancy_certificate",
+    "issuer": "Municipal Corporation (simulated)",
+    "issue_date": "2024-04-01",
+    "expiry_date": "2029-03-31",
+    "reference_number": "OC/PUN/2024/7781",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "certificate_number": "OC/PUN/2024/7781"
+    },
+    "expected_validation_outcome": "valid",
+    "associated_findings": [],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-7AEDE462",
+    "filename": "10_Fire_Safety_Certificate.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "fire_noc",
+    "issuer": "Fire Services (simulated)",
+    "issue_date": "2024-01-01",
+    "expiry_date": "2025-12-31",
+    "reference_number": "FS/PUN/2024/5567",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "noc_number": "FS/PUN/2024/5567",
+      "valid_until": "2025-12-31"
+    },
+    "expected_validation_outcome": "expired",
+    "associated_findings": [
+      "DEMO-NOC-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-02A438DF",
+    "filename": "11_Building_Floor_Plan.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "floor_plan",
+    "issuer": "Institution",
+    "issue_date": "2024-05-01",
+    "expiry_date": null,
+    "reference_number": "AIT/PLAN/2024-01",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "built_up_sqm": "14280",
+      "floors": "4"
+    },
+    "expected_validation_outcome": "valid",
+    "associated_findings": [],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-7B9A06A4",
+    "filename": "12_Laboratory_Photograph_CSE.png",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "infrastructure_photo",
+    "issuer": "Institution",
+    "issue_date": "2025-12-01",
+    "expiry_date": null,
+    "reference_number": "AIT/PHOTO/2025-01",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "label": "CSE Laboratory"
+    },
+    "expected_validation_outcome": "duplicate",
+    "associated_findings": [
+      "DEMO-DOC-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-2BCB10DE",
+    "filename": "13_Library_Equipment_Evidence.png",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "infrastructure_photo",
+    "issuer": "Institution",
+    "issue_date": "2025-12-01",
+    "expiry_date": null,
+    "reference_number": "AIT/PHOTO/2025-02",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "label": "Library"
+    },
+    "expected_validation_outcome": "duplicate",
+    "associated_findings": [
+      "DEMO-DOC-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-F6EA94FD",
+    "filename": "14_Previous_Scrutiny_Deficiency_Report_2025-26.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "scrutiny_report",
+    "issuer": "AICTE (simulated)",
+    "issue_date": "2025-08-20",
+    "expiry_date": null,
+    "reference_number": "DEMO/EOA/2025-26/0143",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "eoa_reference": "DEMO/EOA/2025-26/0143"
+    },
+    "expected_validation_outcome": "reference_mismatch",
+    "associated_findings": [
+      "DEMO-DOC-002"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-F5A4C985",
+    "filename": "15_Compliance_Response_2025-26.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "compliance_response",
+    "issuer": "Institution",
+    "issue_date": "2025-09-10",
+    "expiry_date": null,
+    "reference_number": "AIT/COMP/2025-26/07",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "response_reference": "AIT/COMP/2025-26/07"
+    },
+    "expected_validation_outcome": "valid",
+    "associated_findings": [],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-029A67EC",
+    "filename": "16_Fire_Safety_Certificate_Altered.png",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "fire_noc_scan",
+    "issuer": "Fire Services (simulated)",
+    "issue_date": "2024-01-01",
+    "expiry_date": "2027-03-31",
+    "reference_number": "FS/PUN/2024/5567",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "valid_until": "2027-03-31"
+    },
+    "expected_validation_outcome": "anomaly_review",
+    "associated_findings": [
+      "DEMO-ANOM-001"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-8B452093",
+    "filename": "corrected/17_Faculty_Appointment_Summary_CORRECTED.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "faculty_summary",
+    "issuer": "Institution",
+    "issue_date": "2026-01-20",
+    "expiry_date": null,
+    "reference_number": "AIT/FAC/2026-03",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "total_faculty": "42",
+      "faculty_phd_count": "24"
+    },
+    "expected_validation_outcome": "corrected",
+    "associated_findings": [
+      "DEMO-FAC-001",
+      "DEMO-FAC-002"
+    ],
+    "synthetic": true
+  },
+  {
+    "document_id": "DOC-DEBC268E",
+    "filename": "corrected/18_Fire_Safety_Certificate_RENEWED.pdf",
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "fire_noc",
+    "issuer": "Fire Services (simulated)",
+    "issue_date": "2026-01-20",
+    "expiry_date": "2027-03-31",
+    "reference_number": "FS/PUN/2026/1189",
+    "institution_name": "Aarohan Institute of Technology, Pune",
+    "extractable_fields": {
+      "valid_until": "2027-03-31"
+    },
+    "expected_validation_outcome": "corrected",
+    "associated_findings": [
+      "DEMO-NOC-001"
+    ],
+    "synthetic": true
+  }
+]

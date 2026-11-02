@@ -1,0 +1,149 @@
+# Development Log
+
+## Pre-implementation analysis (2026-11-01)
+
+- Read prd.md (1301 lines) + systemdesign.md (903 lines) in full.
+- Repo was greenfield: only docs + skills. Everything built from scratch.
+- Stitch project 15677314180217415042 is the visual source of truth; exports kept in
+  `design/stitch/`.
+- Environment: Python 3.11.9, Node 24. Port 3000 is occupied by an unrelated local
+  project, so this app runs on port 3100.
+
+## Current architecture: unified agentic workspace
+
+One central AI Copilot + specialized workspaces + one shared application context.
+
+| Area | Status |
+|---|---|
+| FastAPI backend (auth, applications, documents, validation, copilot, reporting) | Done — 38 tests passing |
+| LangGraph agent (`modules/agent.py`) with tool calling | Done (Groq `openai/gpt-oss-20b` when key set) |
+| Deterministic fallback router when no LLM key | Done |
+| OCR: RapidOCR (ONNX) for images / text-less PDFs + PyMuPDF text layer | Done |
+| Next.js 15 frontend, one Copilot + 5 operational workspaces | Done — build passes |
+| Conversation persistence (one conversation per user+application) | Done |
+| Paused: Postgres/pgvector, Redis/Celery, S3, Docker prod | Preserved, not active |
+
+## UX refactor (2026-11-01)
+
+- Single conversational surface at `/copilot`. No other workspace has a chat input.
+- Global "Ask Copilot" in the header and contextual `AskCopilot` actions in Overview,
+  Applications, Documents and Validation. Context is passed as structured JSON
+  (`{kind, id, label, data}`), never as hidden instructions.
+- Workspaces: Overview (command centre + proactive insights), Applications (autosave
+  editor + new draft), Documents (library + evidence inspector), Validation (findings +
+  explain/compare actions), Analysis (distribution, completeness, cross-doc consistency).
+- Copilot renders structured result cards (findings, documents, application summary,
+  compliance report, extracted fields, staged proposals) inline in the conversation.
+- Chat layout: bounded scroll area with the composer pinned below (fixes the earlier
+  "chat goes below the input" bug). Removed clutter such as the "Live Engine" badge.
+
+## LLM configuration (free)
+
+`apps/api/.env`:
+
+```
+LLM_BASE_URL=https://api.groq.com/openai/v1
+LLM_API_KEY=<free key from https://console.groq.com/keys>
+LLM_MODEL=openai/gpt-oss-20b
+```
+
+Without a key the copilot uses the deterministic router; all workflows still work.
+With a key, the LangGraph agent plans tool calls (summary, sections, documents,
+evidence, validation, comparison, proposal staging, report) and streams results.
+
+## How to run
+
+```powershell
+# Terminal 1 — backend (FastAPI + SQLite, port 8000)
+cd apps/api
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+# Terminal 2 — frontend (Next.js, port 3100)
+cd apps/web
+npm install      # first time only
+npm run dev
+```
+
+Open http://localhost:3100/login → `preparer@northstar.edu.in` / `demo1234`.
+
+Reset demo data: stop backend, delete `apps/api/data/aicte.db`, restart backend.
+
+## Verification performed (2026-11-01)
+
+- Backend: 38/38 pytest passing.
+- Frontend: `npx tsc --noEmit` clean; `npm run build` succeeds (Next 15.5.28).
+- LangGraph agent compiles and calls Groq (verified it reaches the API; a valid key is
+  required for live answers).
+- OCR: uploaded a PNG faculty statement → OCR → classified `faculty_statement` and
+  extracted total_faculty, sanctioned_intake, faculty_phd_count.
+- Browser: unified Copilot landing, persisted history, structured findings card,
+  contextual Ask Copilot handoff, all workspaces have zero chat inputs, Overview
+  proactive insights, Applications autosave.
+
+## Graphify note (section 6 of instructions)
+
+"Graphify" is not installed and no official tool by that name matches the described
+codebase-graph use case; I did not guess an install source. The available equivalent is
+the `understand` skill, but it requires a git repo (this dir is not one). User decision:
+skip the graph. Limitation recorded.
+
+## SIH MVP planning phase (2026-11-01)
+
+Completed the research/planning deliverables before further coding:
+
+- `docs/research/AICTE_OFFICIAL_PROCESS_RESEARCH.md` — 14 research questions answered
+  from official AICTE sources, with access classification and uncertainties.
+- `docs/planning/CURRENT_STATE_AND_GAP_ANALYSIS.md` — every requirement classified.
+- `docs/planning/MVP_IMPLEMENTATION_PLAN.md` — 11 MVP phases + future production tasks.
+- `docs/workflows/APPLICATION_CATEGORY_WORKFLOWS.md` + `app/workflows/categories.py` —
+  8 configurable category workflows (scrutiny/re-scrutiny/EVC distinctions).
+- `docs/workflows/VALIDATION_RULES_AND_EVIDENCE_MODEL.md` — finding/rule/evidence
+  schemas, lifecycle, severity, safeguards.
+- `docs/demo/*` — judge runbook, synthetic-data catalog, expected results.
+- `demo-data/` — Aarohan Institute of Technology dataset, 16 primary PDFs/images,
+  2 corrected documents, `document_metadata.json`, `dataset.json`, generated by
+  `scripts/generate_demo_data.py`.
+
+Verification:
+- 38/38 pytest passing (tests force the deterministic router; no external calls).
+- Live LangGraph agent confirmed against Groq `openai/gpt-oss-20b` via the running
+  backend (streamed token deltas + structured answer).
+- Generated documents verified through the extraction pipeline (faculty 48/45,
+  fire NOC 2025-12-31, land 5.20, corrected faculty 42).
+
+Next: Phase 2/3 wiring (category field + workflow routing, demo seed/reset), then
+Phases 4–11 in dependency order.
+
+## Phase 2-3 implemented (2026-11-02)
+
+- Application category + workflow_stage; category-aware sections (programme_details, finance for increase_intake).
+- Workflow config endpoints: GET /api/v1/workflows and /{key}.
+- Document checklist endpoint: GET /api/v1/applications/{id}/checklist (category-specific states).
+- Aarohan demo tenant seed (DEMO_MODE=aarohan): institution AIT-PUNE, app DEMO-EVENT-2026-001, 4 demo users, 6 historical reference records, 3 seeded historical documents, 13-item checklist.
+- Demo reset: POST /api/v1/admin/reset-demo (admin only) + scripts/reset_demo.py.
+- Frontend: category badge, workflow stage strip, checklist panel, category selector on new application; login hints updated to Aarohan.
+- Tests: 44 passing. Production build passes.
+- Git: repository initialized, origin=https://github.com/thealirezakhan/Saakshyam.git, no commits; .gitignore added to protect env secrets.
+
+Next: Phase 4 (full document classification for all demo docs + checklist states), Phase 5 (institutional reference comparison), Phase 6 (mock verification).
+
+## Phase 4-6 implemented (2026-11-02)
+
+- Phase 4: classifiers/extractors for previous_eoa, application_form, faculty_declaration, trust_registration, affidavit, payment_receipt, compliance_declaration, occupancy_certificate, floor_plan, scrutiny_report, compliance_response, infrastructure_photo. All 16 demo docs classify/extract (tests).
+- Phase 5: rule versioning (academic_year, application_categories, official, needs_confirmation, source_document); new evaluators reference_match (application or extracted source) and duplicate_document; finding lifecycle/evidence fields (finding_type, lifecycle_status, human_review_required, reference_value, institutional_record, rule_official). Duplicate uploads now create a needs_review duplicate document + audit instead of silently deduping.
+- Phase 6: mock issuing-authority verification adapter (verified, mismatch, expired, pending, source_unavailable, manual_review) + endpoints POST /documents/{id}/verify, GET /verifications/{id}, GET /applications/{id}/verifications; Documents UI shows the SIMULATED banner and result card.
+- Tests: 47 passing. Browser verified: Aarohan application category/stage/checklist; simulated verification result card.
+
+Next: Phase 7 (infrastructure analysis + EVC workflow), Phase 8 (contextual copilot tools for checklist/verification/infrastructure), Phase 9 (rectification lifecycle).
+
+## Phase 7-11 implemented and verified (2026-11-02)
+
+- Phase 7: infrastructure evidence analysis (inventory, duplicate groups, missing evidence, declared-vs-floor-plan) with a clear physical-inspection disclaimer; EVC workflow (recommend, visit mode, checklist, notes) at GET/POST /applications/{id}/evc/*. UI: /evc workspace.
+- Phase 8: Copilot tools get_checklist, get_verifications, analyze_infrastructure; deterministic intents for checklist, verification, infrastructure, further-scrutiny, revalidation and start-application; structured cards in /copilot.
+- Phase 9: finding lifecycle (clarification -> Correction Submitted, revalidate -> Resolved/Unresolved, escalate -> Escalated for Human Review) with full history retained; Validation modal UI.
+- Phase 10: reviewer workspace (queue, observations, request evidence, mark manual, recommend EVC) at /review; report now includes verifications, review actions, EVC and simulated-source flag; no approve/reject endpoint.
+- Phase 11: E2E script scripts/e2e_demo.py exercises institution uploads (16 docs), validation, all six verification outcomes, infrastructure duplicates, EVC, rectification, reviewer actions and report -> 'E2E DEMO: PASS'.
+- Role-aware auto-validation guards added (reviewers no longer trigger forbidden runs).
+- Tests: 51 passing. Production build: 11 routes. Demo running: backend :8000 (aarohan), frontend :3100.
+
+All MVP phases complete. Remaining work is documentation polish and optional LLM-quality tuning; production integrations remain future work.

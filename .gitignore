@@ -1,0 +1,41 @@
+# Secrets and local env (never commit)
+.env
+.env.local
+.env.*.local
+apps/api/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+pytest*.out
+
+# Runtime data
+data/
+apps/api/data/
+aicte-documents/
+apps/api/aicte-documents/
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# Node / Next
+node_modules/
+.next/
+out/
+.turbo/
+npm-debug.log*
+apps/web/tsconfig.tsbuildinfo
+
+# Tooling artifacts
+.playwright-mcp/
+.opencode/
+/*.png
+.DS_Store
+Thumbs.db

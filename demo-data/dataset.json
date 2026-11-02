@@ -1,0 +1,180 @@
+{
+  "synthetic": true,
+  "notice": "SYNTHETIC DEMO DATA - NOT AN OFFICIAL AICTE DOCUMENT",
+  "institution": {
+    "institution_id": "DEMO-AICTE-0001",
+    "name": "Aarohan Institute of Technology",
+    "code": "AIT-PUNE",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "trust": "Aarohan Education Society"
+  },
+  "users": [
+    {
+      "email": "inst.admin@aarohan.demo",
+      "name": "Meera Kulkarni",
+      "role": "admin"
+    },
+    {
+      "email": "scrutiny@aicte.demo",
+      "name": "Reviewer S. Nair",
+      "role": "reviewer"
+    },
+    {
+      "email": "evc@aicte.demo",
+      "name": "EVC Member R. Deshpande",
+      "role": "evc"
+    },
+    {
+      "email": "sysadmin@aicte.demo",
+      "name": "System Administrator",
+      "role": "admin"
+    }
+  ],
+  "application": {
+    "application_id": "DEMO-EVENT-2026-001",
+    "institution_id": "DEMO-AICTE-0001",
+    "category": "increase_intake",
+    "application_type": "Increase in Intake / Additional Course",
+    "academic_year": "2026-27",
+    "proposed_intake": 330,
+    "existing_intake": 240
+  },
+  "historical_records": {
+    "approved_programmes": {
+      "CSE": 120,
+      "ECE": 60,
+      "Mechanical": 60
+    },
+    "approved_intake": 240,
+    "faculty_on_record": 42,
+    "faculty_phd_on_record": 24,
+    "land_acres": 5.2,
+    "previous_eoa": "DEMO/EOA/2025-26/0142",
+    "previous_observation": "Faculty shortfall (42 on record vs 45 listed); fire NOC renewal required."
+  },
+  "expected_findings": [
+    {
+      "rule_id": "DEMO-FAC-001",
+      "severity": "High",
+      "title": "Faculty count inconsistency",
+      "values": {
+        "declared": 48,
+        "list": 45,
+        "record": 42
+      }
+    },
+    {
+      "rule_id": "DEMO-FAC-002",
+      "severity": "High",
+      "title": "Faculty vs institutional record",
+      "values": {
+        "list": 45,
+        "record": 42
+      }
+    },
+    {
+      "rule_id": "DEMO-NOC-001",
+      "severity": "High",
+      "title": "Fire NOC expired",
+      "values": {
+        "document": "2025-12-31",
+        "application": "2027-03-31"
+      }
+    },
+    {
+      "rule_id": "DEMO-DOC-001",
+      "severity": "Medium",
+      "title": "Duplicate/reused evidence",
+      "values": {
+        "documents": [
+          12,
+          13
+        ]
+      }
+    },
+    {
+      "rule_id": "DEMO-DOC-002",
+      "severity": "Medium",
+      "title": "Inconsistent reference",
+      "values": {
+        "eoa": "0142",
+        "scrutiny": "0143"
+      }
+    },
+    {
+      "rule_id": "DEMO-ID-001",
+      "severity": "Medium",
+      "title": "Institution detail inconsistency",
+      "values": {
+        "affidavit_city": "Nagpur",
+        "actual_city": "Pune"
+      }
+    },
+    {
+      "rule_id": "DEMO-INF-001",
+      "severity": "Medium",
+      "title": "Infrastructure evidence gap",
+      "values": {
+        "missing": "library equipment list"
+      }
+    },
+    {
+      "rule_id": "DEMO-VER-001",
+      "severity": "Informational",
+      "title": "Verification pending",
+      "values": {
+        "document": "trust_registration"
+      }
+    },
+    {
+      "rule_id": "DEMO-CHK-001",
+      "severity": "Medium",
+      "title": "Incomplete declaration",
+      "values": {
+        "document": "compliance_declaration",
+        "missing": "signature"
+      }
+    }
+  ],
+  "verification_cases": [
+    {
+      "document": "01_Previous_EOA_Letter_2025-26.pdf",
+      "result": "verified"
+    },
+    {
+      "document": "03_Faculty_Information_Declaration.pdf",
+      "result": "mismatch"
+    },
+    {
+      "document": "05_Trust_Registration_Certificate.pdf",
+      "result": "pending"
+    },
+    {
+      "document": "08_Institutional_Compliance_Declaration.pdf",
+      "result": "manual_review"
+    },
+    {
+      "document": "09_Building_Occupancy_Certificate.pdf",
+      "result": "source_unavailable"
+    },
+    {
+      "document": "10_Fire_Safety_Certificate.pdf",
+      "result": "expired"
+    }
+  ],
+  "audit_seed": [
+    {
+      "action": "application.create",
+      "target": "DEMO-EVENT-2026-001"
+    },
+    {
+      "action": "document.upload",
+      "target": "01_Previous_EOA_Letter_2025-26.pdf"
+    },
+    {
+      "action": "validation.run",
+      "target": "initial"
+    }
+  ]
+}
