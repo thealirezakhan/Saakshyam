@@ -131,7 +131,7 @@ function Overview() {
                     <Badge status={f.status} />
                     <div className="min-w-0 flex-1">
                       <div className="font-body-sm font-semibold text-on-surface">
-                        {f.rule_id} — {f.explanation.split(".")[0]}
+                        {f.rule_id} — {f.explanation.split(". ")[0]}
                       </div>
                       <div className="font-label-sm text-on-surface-variant truncate">{f.remediation || "Review required"}</div>
                     </div>

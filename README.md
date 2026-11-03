@@ -70,7 +70,26 @@ The dataset contains 16 synthetic documents plus 2 corrections. It deliberately 
 Every document is marked
 `SYNTHETIC DEMO DATA - NOT AN OFFICIAL AICTE DOCUMENT`.
 
-## 4. Architecture
+## 4. Demo gallery — the working product
+
+Every screenshot below was captured from the running prototype against the synthetic
+Aarohan dataset. They show persisted results (validation findings, verification outcomes,
+EVC and reviewer actions), not static mockups. Images are width-scaled only, so they keep
+their original aspect ratio.
+
+<img src="docs/demo/screenshots/01-overview.png" alt="Application overview showing 94% completion, 60% readiness, 20 documents (19 indexed) and 6 open issues" width="100%">
+
+<p align="center"><sub><b>Overview.</b> 94% completion, 60% readiness, 20 documents (19 indexed) and 6 open issues (5 deficiencies + 1 manual review). Critical findings and recent audit events are visible in one place.</sub></p>
+
+| | |
+|---|---|
+| <img src="docs/demo/screenshots/03-validation-results.png" alt="Validation screen showing 9 of 15 rules satisfied with severity, status and remediation" width="100%"><br><sub><b>Deterministic validation.</b> 9/15 rules satisfied. Each finding carries severity, status, field key and a remediation action; the primary deficiency is highlighted.</sub> | <img src="docs/demo/screenshots/04-finding-evidence.png" alt="Finding detail comparing the declared fire NOC expiry 2027-03-31 with the extracted date 2025-12-31 and the cited page quote" width="100%"><br><sub><b>Evidence-linked finding.</b> DEMO-NOC-001 compares the declared fire NOC expiry (2027-03-31) with the extracted date (2025-12-31), shows the source document, page and exact quote, and retains every prior run in history.</sub> |
+| <img src="docs/demo/screenshots/05-finding-rectification.png" alt="Rectification history showing DEMO-FAC-002 moved from FAIL to PASS and the original finding marked Resolved" width="100%"><br><sub><b>Rectification lifecycle.</b> DEMO-FAC-002: FAIL → correction document → revalidation → PASS/Closed, with the original finding retained as <em>Resolved</em>.</sub> | <img src="docs/demo/screenshots/07-simulated-verification.png" alt="Simulated issuing-authority verification showing an expired fire NOC and the no-live-connection banner" width="100%"><br><sub><b>Simulated verification.</b> The fire NOC check returns <em>expired</em> with request ID, simulated source, submitted/returned values and the mandatory <em>“no live government connection”</em> banner.</sub> |
+| <img src="docs/demo/screenshots/06-documents.png" alt="Document intelligence grid showing 20 documents, 19 extracted, 1 needing review and per-document field counts" width="100%"><br><sub><b>Document intelligence.</b> 20 documents on file, 19 extracted, 1 needs review. The duplicate laboratory/library image is flagged and every document shows its class and extracted field count.</sub> | <img src="docs/demo/screenshots/08-evc-workspace.png" alt="EVC workspace showing duplicate infrastructure evidence, missing evidence count, recommendation and reviewer note" width="100%"><br><sub><b>Infrastructure / EVC.</b> The duplicate laboratory/library images are detected, EVC is recommended, a checklist is generated and a reviewer note is recorded. Missing evidence is computed, not assumed.</sub> |
+| <img src="docs/demo/screenshots/09-analysis.png" alt="Analysis screen showing PASS/FAIL distribution, section completeness, cross-document consistency and missing fields" width="100%"><br><sub><b>Application intelligence.</b> PASS/FAIL distribution, per-section completeness, cross-document consistency, missing evidence and the full regulatory applicability list.</sub> | <img src="docs/demo/screenshots/10-copilot.png" alt="Copilot answering with a grounded summary of six unresolved findings" width="100%"><br><sub><b>Grounded Copilot.</b> The Copilot summarizes the six unresolved findings from persisted data. It runs on LangGraph with a free Groq model and falls back deterministically when no LLM is configured.</sub> |
+| <img src="docs/demo/screenshots/02-application-checklist.png" alt="Application page showing category, workflow stages, 13-item document checklist and section completeness" width="100%"><br><sub><b>Application workspace.</b> Category, workflow stages, the 13-item category checklist and all application sections with completion percentages.</sub> | <img src="docs/demo/screenshots/11-reviewer-workspace.png" alt="Reviewer queue showing findings, observations, evidence request and manual verification actions" width="100%"><br><sub><b>Reviewer workspace.</b> The scrutiny reviewer sees the queue, selects a finding, and records an observation, an evidence request and a manual-verification flag. Decisions remain human.</sub> |
+
+## 5. Architecture
 
 ```
 ┌─────────────────────────────┐        /api/* rewrite        ┌──────────────────────────────┐
@@ -90,7 +109,7 @@ Every document is marked
 Design principle: the LLM orchestrates and explains; deterministic rules decide
 pass/fail; the database is the source of truth; every result is traceable to evidence.
 
-## 5. Repository map
+## 6. Repository map
 
 ```
 apps/api/            FastAPI backend
@@ -102,13 +121,13 @@ apps/api/            FastAPI backend
   tests/             51 pytest tests
 apps/web/            Next.js frontend (Copilot + workspaces)
 demo-data/           synthetic documents, metadata, dataset
-docs/                research, planning, workflows, demo runbook
+docs/                research, planning, workflows, demo runbook, screenshots
 scripts/             generate_demo_data.py, reset_demo.py, e2e_demo.py
 prd.md               product requirements
 systemdesign.md      system design
 ```
 
-## 6. Quick start
+## 7. Quick start
 
 Requirements: Python 3.11+, Node 24+.
 
@@ -137,7 +156,7 @@ Open **http://localhost:3100/login**.
 The LLM is optional: without `LLM_API_KEY`, the Copilot uses deterministic responses and
 the demo still works end to end.
 
-## 7. Demonstration
+## 8. Demonstration
 
 The step-by-step judge script is in
 [`docs/demo/JUDGE_DEMONSTRATION_RUNBOOK.md`](docs/demo/JUDGE_DEMONSTRATION_RUNBOOK.md).
@@ -167,7 +186,7 @@ Automated end-to-end check:
 python scripts/e2e_demo.py      # prints: E2E DEMO: PASS
 ```
 
-## 8. Tests
+## 9. Tests
 
 ```powershell
 cd apps/api
@@ -180,7 +199,7 @@ detection, all six verification outcomes, EVC workflow, rectification lifecycle,
 reviewer actions, report/audit, prompt-injection guard, and the absence of any
 approve/reject tool.
 
-## 9. Regulatory grounding and uncertainty
+## 10. Regulatory grounding and uncertainty
 
 The research record is in
 [`docs/research/AICTE_OFFICIAL_PROCESS_RESEARCH.md`](docs/research/AICTE_OFFICIAL_PROCESS_RESEARCH.md).
@@ -197,7 +216,7 @@ Important limits:
   `SIMULATED VERIFICATION - NO LIVE GOVERNMENT OR ISSUING-AUTHORITY CONNECTION`.
 - Prototype-only rules are labelled "Prototype demo rule".
 
-## 10. Safeguards
+## 11. Safeguards
 
 - No approve/reject/penalty endpoint exists; final decisions remain human.
 - Anomalies are "potential, requiring human review", never proof of forgery.
@@ -206,7 +225,7 @@ Important limits:
 - Audit events for uploads, validation, verification, corrections, reviews, EVC and reports.
 - Synthetic data only; no real personal or institutional data.
 
-## 11. Limitations and future work
+## 12. Limitations and future work
 
 Out of scope for this prototype (documented in `IMPLEMENTATION_PLAN.md`):
 
@@ -216,7 +235,7 @@ Out of scope for this prototype (documented in `IMPLEMENTATION_PLAN.md`):
 - verified APH annexure document lists and addendum-aware rule corpus;
 - legal review of anomaly wording and retention policy.
 
-## 12. Documentation index
+## 13. Documentation index
 
 - `docs/research/AICTE_OFFICIAL_PROCESS_RESEARCH.md`
 - `docs/planning/CURRENT_STATE_AND_GAP_ANALYSIS.md`

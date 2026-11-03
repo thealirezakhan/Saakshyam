@@ -179,28 +179,45 @@ function Validation() {
                       {primary.status === "FAIL" ? "Primary deficiency" : "Under review"}
                     </div>
                     <h2 className="font-headline-md font-semibold tracking-tight">
-                      {primary.rule_id} — {primary.explanation.split(".")[0]}
+                      {primary.rule_id} — {primary.explanation.split(". ")[0]}
                     </h2>
                   </div>
                 </div>
                 <Badge status={primary.status} />
               </div>
 
-              <div className="grid grid-cols-3 gap-2 py-3 my-3 bg-surface-container-low/60 rounded-lg px-3">
-                <Stat label="Required" value={stats.required} unit={stats.unit} />
-                <Stat label="Submitted" value={stats.submitted} unit="verified" />
-                <Stat label="Shortfall" value={stats.shortfall} unit={stats.shortfallLabel} tone />
-              </div>
+              {primary.rule_id === "APH-7.2.1" ? (
+                <>
+                  <div className="grid grid-cols-3 gap-2 py-3 my-3 bg-surface-container-low/60 rounded-lg px-3">
+                    <Stat label="Required" value={stats.required} unit={stats.unit} />
+                    <Stat label="Submitted" value={stats.submitted} unit="verified" />
+                    <Stat label="Shortfall" value={stats.shortfall} unit={stats.shortfallLabel} tone />
+                  </div>
 
-              <div className="flex justify-between items-center mb-1.5">
-                <span className="font-label-sm text-on-surface-variant">Cadre distribution compliance</span>
-                <span className="font-label-sm font-semibold text-on-surface">{stats.pct}%</span>
-              </div>
-              <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
-                <div className="bg-primary h-full" style={{ width: `${stats.regular}%` }} />
-                <div className="bg-secondary-fixed-dim h-full" style={{ width: `${stats.reclass}%` }} />
-                <div className="bg-error-container h-full" style={{ width: `${stats.deficit}%` }} />
-              </div>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <span className="font-label-sm text-on-surface-variant">Cadre distribution compliance</span>
+                    <span className="font-label-sm font-semibold text-on-surface">{stats.pct}%</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+                    <div className="bg-primary h-full" style={{ width: `${stats.regular}%` }} />
+                    <div className="bg-secondary-fixed-dim h-full" style={{ width: `${stats.reclass}%` }} />
+                    <div className="bg-error-container h-full" style={{ width: `${stats.deficit}%` }} />
+                  </div>
+                </>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 py-3 my-3 bg-surface-container-low/60 rounded-lg px-3 font-body-sm">
+                  <div>
+                    <div className="font-label-sm uppercase text-on-surface-variant">Application value</div>
+                    <div className="font-semibold text-on-surface">{primary.application_value || "Not provided"}</div>
+                  </div>
+                  <div>
+                    <div className="font-label-sm uppercase text-on-surface-variant">Evidence / comparison</div>
+                    <div className="font-semibold text-on-surface">
+                      {primary.reference_value || primary.institutional_record || primary.evidence?.filename || "Review required"}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className="mt-3 p-3 rounded-lg bg-copilot border border-copilot-border flex items-start gap-2">
                 <span className="material-symbols-outlined text-[18px] text-copilot-fg">insights</span>
